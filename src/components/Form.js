@@ -4,7 +4,7 @@ import Card from "./Card";
 const Form = () => {
   return (
     <Card title="Form Layout">
-      <form id="info-form">
+      <form id="form-link">
         <div className="form-group">
           <label htmlFor="full_name">Full Name</label>
           <input type="text" id="full_name" />

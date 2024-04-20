@@ -20,7 +20,7 @@ const FormState = () => {
 
   return (
     <Card title="Form with State">
-      <form id="info-form" onSubmit={handleSubmit}>
+      <form id="form-state-link" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="full_name">Full Name</label>
           <input
