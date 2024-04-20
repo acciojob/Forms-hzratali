@@ -1,54 +1,109 @@
-import React, { useRef } from "react";
-import Card from "./Card";
+import React, { useRef, useCallback } from "react";
 
-const FormRef = () => {
-  const fullNameRef = useRef(null);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const confirmPasswordRef = useRef(null);
+import Card from "./card";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const fullNameValue = fullNameRef.current.value;
-    const emailValue = emailRef.current.value;
-    const passwordValue = passwordRef.current.value;
-    const confirmPasswordValue = confirmPasswordRef.current.value;
-    // Form submission logic using refs
-    console.log("Form submitted with values:", {
-      fullName: fullNameValue,
-      email: emailValue,
-      password: passwordValue,
-      confirmPassword: confirmPasswordValue,
-    });
-  };
+export default function FormRef() {
+  console.log("### Refreshing");
+  // const [userData,setUserData] = useState(initialUserData)
+  const fullNameInputElement = useRef();
+  const emailInputElement = useRef();
+  const passwordInputElement = useRef();
+  const passwordConfirmationInputElement = useRef();
 
-  return (
-    <Card title="Form with Ref">
-      <form id="form-ref-link" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="full_name">Full Name</label>
-          <input type="text" id="full_name" ref={fullNameRef} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" ref={emailRef} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" ref={passwordRef} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password_confirmation">Confirm Password</label>
-          <input
-            type="password"
-            id="password_confirmation"
-            ref={confirmPasswordRef}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </Card>
+  // const updateUserDataHandler = useCallback(
+  //     (type) => (event) => {
+  //         setUserData({...userData,[type]:event.target.value})
+  //     },[userData]
+  // )
+
+  const formHandler = useCallback(
+    () => (event) => {
+      event.preventDefault();
+      const data = {
+        fullName: fullNameInputElement.current
+          ? fullNameInputElement.current.value
+          : "",
+        email: emailInputElement.current?.value,
+        password: passwordInputElement.current?.value,
+        passwordConfirmation: passwordConfirmationInputElement.current?.value,
+      };
+      console.log(data);
+    },
+    []
   );
-};
-
-export default FormRef;
+  return (
+    <div className="flex h-screen bg-gray-500 w-screen items-center justify-center">
+      <Card>
+        <h1 className="text-3xl">Signup</h1>
+        <form className="mt-4" onSubmit={formHandler()} id="info-form">
+          <div className="flex flex-col mb-4">
+            <label
+              className="text-gray-700 text-sm font-bold mb-2"
+              htmlFor="full_name"
+            >
+              Full name
+            </label>
+            <input
+              id="full_name"
+              placeholder="Full name"
+              type="text"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              ref={fullNameInputElement}
+            />
+          </div>
+          <div className="flex flex-col mb-4">
+            <label
+              className="text-gray-700 text-sm font-bold mb-2"
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              placeholder="Email"
+              type="email"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              ref={emailInputElement}
+            />
+          </div>
+          <div className="flex flex-col mb-4">
+            <label
+              className="text-gray-700 text-sm font-bold mb-2"
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              placeholder="Password"
+              type="password"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              ref={passwordInputElement}
+            />
+          </div>
+          <div className="flex flex-col mb-4">
+            <label
+              className="text-gray-700 text-sm font-bold mb-2"
+              htmlFor="password_confirmation"
+            >
+              Password Confirmation
+            </label>
+            <input
+              id="password_confirmation"
+              placeholder="Password Confirmation"
+              type="password"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              ref={passwordConfirmationInputElement}
+            />
+          </div>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Submit
+          </button>
+        </form>
+      </Card>
+    </div>
+  );
+}
