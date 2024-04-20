@@ -11,24 +11,24 @@ const App = () => {
         <nav>
           <ul>
             <li>
-              <NavLink to="/" exact activeClassName="active">
-                Form Layout
+              <NavLink to="/form" activeClassName="active">
+                Form
               </NavLink>
             </li>
             <li>
               <NavLink to="/form-ref" activeClassName="active">
-                Form with useRef
+                Form with Ref
               </NavLink>
             </li>
             <li>
               <NavLink to="/form-state" activeClassName="active">
-                Form with useState
+                Form with State
               </NavLink>
             </li>
           </ul>
         </nav>
 
-        <Route path="/" exact component={Form} />
+        <Route path="/form" component={Form} />
         <Route path="/form-ref" component={FormRef} />
         <Route path="/form-state" component={FormState} />
       </div>
